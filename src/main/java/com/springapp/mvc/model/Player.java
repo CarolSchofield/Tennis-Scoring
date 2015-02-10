@@ -14,8 +14,8 @@ public class Player {
         return currentScore;
     }
 
-    public void scorePoint() {
-        currentScore += 15;
+    public void incrementScore() {
+        currentScore = Math.min(currentScore + 15, 40);
     }
 
     public void resetScore() {

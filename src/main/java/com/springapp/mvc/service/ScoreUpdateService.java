@@ -18,12 +18,11 @@ public class ScoreUpdateService {
 
     public void scorePoint(String playerNumber) {
         if(playerNumber.equals("Player One")) {
-            playerOne.scorePoint();
+            playerOne.incrementScore();
         }
         else if(playerNumber.equals("Player Two")) {
-            playerTwo.scorePoint();
+            playerTwo.incrementScore();
         }
-        
     }
 
     public String getCurrentScore() {

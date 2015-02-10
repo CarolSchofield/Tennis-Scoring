@@ -30,7 +30,7 @@ public class ScoreUpdateServiceTest {
         
         scoreUpdateService.scorePoint("Player One");
         
-        verify(playerOne).scorePoint();
+        verify(playerOne).incrementScore();
     }
 
     @Test
@@ -39,7 +39,7 @@ public class ScoreUpdateServiceTest {
 
         scoreUpdateService.scorePoint("Player Two");
 
-        verify(playerTwo).scorePoint();
+        verify(playerTwo).incrementScore();
     }
 
     @Test
