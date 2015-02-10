@@ -17,6 +17,6 @@ public class HelloController {
 	public String printWelcome(ModelMap model) {
 		model.addAttribute("message", "Hello world!");
         model.addAttribute("score", scoreUpdateController.getCurrentScore());
-		return "hello";
+		return "tennis";
 	}
 }
