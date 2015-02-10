@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/")
-public class HelloController {
+public class HomeController {
     @Autowired
-    private ScoreUpdateService scoreUpdateController;
+    private ScoreUpdateService scoreUpdateService;
 
     @RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
-		model.addAttribute("message", "Hello world!");
-        model.addAttribute("score", scoreUpdateController.getCurrentScore());
+		model.addAttribute("message", "Welcome to Tennis Scorekeeper!");
+        model.addAttribute("score", scoreUpdateService.getCurrentScore());
 		return "tennis";
 	}
 }

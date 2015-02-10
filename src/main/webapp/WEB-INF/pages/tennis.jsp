@@ -4,10 +4,10 @@
 
 <form action="/updateAction" method="post">
     <input type="submit" data-qa="player-one-button" name="player" value="Player One"/>
-
+    <input type="submit" data-qa="player-two-button" name="player" value="Player Two"/>
 </form>
 
-<div data-qa="player-one-score">${score}</div>
+<div data-qa="score">${score}</div>
 
 <form action = "/resetScore" method="post">
     <input type="submit" data-qa="reset-button" value="Reset Score"/>

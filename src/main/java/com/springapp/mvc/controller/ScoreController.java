@@ -17,11 +17,9 @@ public class ScoreController {
         this.scoreUpdateService = scoreUpdateService;
     }
 
-
-
     @RequestMapping(method = RequestMethod.POST, value = "/updateAction")
     public String respondToButtonClick(HttpServletRequest request) {
-        scoreUpdateService.scorePoint((String)request.getAttribute("player"));
+        scoreUpdateService.scorePoint(request.getParameter("player"));
         return "redirect:/";
     }
 
