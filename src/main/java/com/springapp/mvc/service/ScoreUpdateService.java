@@ -1,24 +1,24 @@
 package com.springapp.mvc.service;
 
+import com.springapp.mvc.model.Player;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ScoreUpdateService {
-    private Integer currentScore;
 
-    public ScoreUpdateService(){
-        currentScore = 0;
-    }
-
+    @Autowired
+    Player player;
+    
     public void scorePoint() {
-        currentScore += 15;
+        player.scorePoint();
     }
 
     public Integer getCurrentScore() {
-        return currentScore;
+        return player.getCurrentScore();
     }
 
     public void resetScore() {
-        currentScore = 0;
+        player.resetScore(); 
     }
 }
