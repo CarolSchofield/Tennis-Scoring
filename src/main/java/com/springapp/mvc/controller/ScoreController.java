@@ -3,9 +3,10 @@ package com.springapp.mvc.controller;
 import com.springapp.mvc.service.ScoreUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ScoreController {
@@ -19,8 +20,8 @@ public class ScoreController {
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/updateAction")
-    public String respondToButtonClick(ModelMap model) {
-        scoreUpdateService.scorePoint();
+    public String respondToButtonClick(HttpServletRequest request) {
+        scoreUpdateService.scorePoint((String)request.getAttribute("player"));
         return "redirect:/";
     }
 

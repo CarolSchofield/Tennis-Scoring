@@ -5,15 +5,19 @@ import com.springapp.mvc.service.ScoreUpdateService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.springframework.ui.ModelMap;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class ScoreControllerTest {
 
     @Mock
     ScoreUpdateService scoreUpdateService;
+    @Mock
+    HttpServletRequest request;        
     ScoreController scoreController;
 
     @Before
@@ -25,8 +29,9 @@ public class ScoreControllerTest {
 
     @Test
     public void shouldCallScoreUpdaterService() {
-        scoreController.respondToButtonClick(new ModelMap());
-        verify(scoreUpdateService).scorePoint();
+        when(request.getAttribute("player")).thenReturn("somePlayer");
+        scoreController.respondToButtonClick(request);
+        verify(scoreUpdateService).scorePoint("somePlayer");
 
     }
 

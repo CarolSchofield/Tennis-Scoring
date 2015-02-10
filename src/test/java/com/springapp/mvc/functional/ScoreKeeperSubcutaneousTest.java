@@ -15,8 +15,11 @@ public class ScoreKeeperSubcutaneousTest {
         ApplicationContext applicationContext = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml");
 
         ScoreUpdateService scoreUpdateService = applicationContext.getBean(ScoreUpdateService.class);
-        scoreUpdateService.scorePoint();
-        assertThat(scoreUpdateService.getCurrentScore(), is(15));
+        scoreUpdateService.scorePoint("Player One");
+        scoreUpdateService.scorePoint("Player One");
+        scoreUpdateService.scorePoint("Player Two");
+
+        assertThat(scoreUpdateService.getCurrentScore(), is("30/15"));
 
     }
 }
