@@ -43,4 +43,27 @@ public class PlayerTest {
         player.resetScore();
         assertThat(player.getCurrentScore(), is(0));
     }
+
+    @Test
+    public void shouldNotDeclareWinnerBeforeAnyPointsAreScored() throws Exception {
+        Player opponent = new Player();
+        Boolean defeatedOpponent = player.defeated(opponent);
+
+        assertThat(defeatedOpponent, is(Boolean.FALSE));
+
+    }
+
+    @Test
+    public void shouldDiscoverPlayerOneDefeatsOpponent() {
+        Player opponent = new Player();
+        player.incrementScore();
+        player.incrementScore();
+        player.incrementScore();
+        player.incrementScore();
+
+        Boolean defeatedOpponent = player.defeated(opponent);
+
+        assertThat(defeatedOpponent, is(Boolean.TRUE));
+    }
+
 }

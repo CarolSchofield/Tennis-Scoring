@@ -1,38 +1,33 @@
 package com.springapp.mvc.service;
 
+import com.springapp.mvc.model.Game;
 import com.springapp.mvc.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ScoreUpdateService {
-    private static final String DELIMITER = "/";
 
+    private Game game;
+    
     @Autowired
-    @Qualifier("playerOne")
-    Player playerOne;
-    @Autowired
-    @Qualifier("playerTwo")
-    Player playerTwo;
+    public ScoreUpdateService(Game game) {
+        this.game = game;
+    }
 
-    public void scorePoint(String playerNumber) {
-        if(playerNumber.equals("Player One")) {
-            playerOne.incrementScore();
-        }
-        else if(playerNumber.equals("Player Two")) {
-            playerTwo.incrementScore();
-        }
+    public void scorePoint(Player player) {
+        game.pointBy(player);
     }
 
     public String getCurrentScore() {
-        String p1Score = String.valueOf(playerOne.getCurrentScore());
-        String p2Score = String.valueOf(playerTwo.getCurrentScore());
-        return p1Score + DELIMITER + p2Score;
+        return game.score();
     }
 
     public void resetScore() {
-        playerOne.resetScore(); 
-        playerTwo.resetScore();
+        game.resetScore();
+    }
+
+    public Player winner() {
+        return game.winner();
     }
 }

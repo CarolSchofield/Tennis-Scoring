@@ -1,65 +1,54 @@
 package com.springapp.mvc.service;
 
+import com.springapp.mvc.model.Game;
 import com.springapp.mvc.model.Player;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class ScoreUpdateServiceTest {
     @Mock
-    Player mockPlayerOne;
-    @Mock 
-    Player mockPlayerTwo;
+    Player mockPlayer;
+
+    @Mock
+    Game mockGame;
     private ScoreUpdateService scoreUpdateService;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        scoreUpdateService = new ScoreUpdateService();
+        scoreUpdateService = new ScoreUpdateService(mockGame);
     }
 
     @Test
-    public void shouldUpdatePlayerScore() {
-        scoreUpdateService.playerOne = mockPlayerOne;
-        
-        scoreUpdateService.scorePoint("Player One");
-        
-        verify(mockPlayerOne).incrementScore();
+    public void shouldNotifyGameWhenPlayerScores() {
+        scoreUpdateService.scorePoint(mockPlayer);
+
+        verify(mockGame).pointBy(mockPlayer);
     }
 
     @Test
-    public void shouldUpdatePlayerTwoScoreWhenPlayerTwoScores()  {
-        scoreUpdateService.playerTwo = mockPlayerTwo;
-
-        scoreUpdateService.scorePoint("Player Two");
-
-        verify(mockPlayerTwo).incrementScore();
+    public void shouldAskGameForScores() throws Exception {
+        scoreUpdateService.getCurrentScore();
+        verify(mockGame).score();
     }
 
     @Test
-    public void shouldConcatenateScoresForPlayers() throws Exception {
-        scoreUpdateService.playerOne = mockPlayerOne;
-        scoreUpdateService.playerTwo = mockPlayerTwo;
-        
-        when(mockPlayerOne.getCurrentScore()).thenReturn(1);
-        when(mockPlayerTwo.getCurrentScore()).thenReturn(2);
-
-        assertThat(scoreUpdateService.getCurrentScore(), is("1/2"));
-        
-    }
-
-    @Test
-    public void shouldResetPlayersWhenGameIsReset() {
-        scoreUpdateService.playerOne = mockPlayerOne;
-        scoreUpdateService.playerTwo = mockPlayerTwo;
+    public void shouldTellGameToReset() {
         scoreUpdateService.resetScore();
-        verify(mockPlayerOne).resetScore();
-        verify(mockPlayerTwo).resetScore();
+        verify(mockGame).resetScore();
+    }
+
+    @Test
+    public void shouldGetWinnerFromGame() {
+        when(mockGame.winner()).thenReturn(mockPlayer);
+
+        scoreUpdateService.winner();
+        
+        verify(mockGame).winner();
     }
 }
