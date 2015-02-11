@@ -13,9 +13,9 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class ScoreUpdateServiceTest {
     @Mock
-    Player playerOne;
+    Player mockPlayerOne;
     @Mock 
-    Player playerTwo;
+    Player mockPlayerTwo;
     private ScoreUpdateService scoreUpdateService;
 
     @Before
@@ -26,29 +26,29 @@ public class ScoreUpdateServiceTest {
 
     @Test
     public void shouldUpdatePlayerScore() {
-        scoreUpdateService.playerOne = playerOne;
+        scoreUpdateService.playerOne = mockPlayerOne;
         
         scoreUpdateService.scorePoint("Player One");
         
-        verify(playerOne).incrementScore();
+        verify(mockPlayerOne).incrementScore();
     }
 
     @Test
     public void shouldUpdatePlayerTwoScoreWhenPlayerTwoScores()  {
-        scoreUpdateService.playerTwo = playerTwo;
+        scoreUpdateService.playerTwo = mockPlayerTwo;
 
         scoreUpdateService.scorePoint("Player Two");
 
-        verify(playerTwo).incrementScore();
+        verify(mockPlayerTwo).incrementScore();
     }
 
     @Test
     public void shouldConcatenateScoresForPlayers() throws Exception {
-        scoreUpdateService.playerOne = playerOne;
-        scoreUpdateService.playerTwo = playerTwo;
+        scoreUpdateService.playerOne = mockPlayerOne;
+        scoreUpdateService.playerTwo = mockPlayerTwo;
         
-        when(playerOne.getCurrentScore()).thenReturn(1);
-        when(playerTwo.getCurrentScore()).thenReturn(2);
+        when(mockPlayerOne.getCurrentScore()).thenReturn(1);
+        when(mockPlayerTwo.getCurrentScore()).thenReturn(2);
 
         assertThat(scoreUpdateService.getCurrentScore(), is("1/2"));
         
@@ -56,10 +56,10 @@ public class ScoreUpdateServiceTest {
 
     @Test
     public void shouldResetPlayersWhenGameIsReset() {
-        scoreUpdateService.playerOne = playerOne;
-        scoreUpdateService.playerTwo = playerTwo;
+        scoreUpdateService.playerOne = mockPlayerOne;
+        scoreUpdateService.playerTwo = mockPlayerTwo;
         scoreUpdateService.resetScore();
-        verify(playerOne).resetScore();
-        verify(playerTwo).resetScore();
+        verify(mockPlayerOne).resetScore();
+        verify(mockPlayerTwo).resetScore();
     }
 }

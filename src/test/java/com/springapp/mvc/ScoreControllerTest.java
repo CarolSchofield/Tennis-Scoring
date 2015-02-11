@@ -29,7 +29,7 @@ public class ScoreControllerTest {
 
     @Test
     public void shouldCallScoreUpdaterService() {
-        when(request.getAttribute("player")).thenReturn("somePlayer");
+        when(request.getParameter("player")).thenReturn("somePlayer");
         scoreController.respondToButtonClick(request);
         verify(scoreUpdateService).scorePoint("somePlayer");
 
