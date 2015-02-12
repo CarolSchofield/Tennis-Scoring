@@ -1,7 +1,5 @@
 package com.springapp.mvc.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -9,12 +7,7 @@ public class Game {
 
     private static final String DELIMITER = "/";
     
-    @Autowired
-    @Qualifier("playerOne")
     private Player playerOne;
-
-    @Autowired
-    @Qualifier("playerTwo")
     private Player playerTwo;
 
     private Game() {

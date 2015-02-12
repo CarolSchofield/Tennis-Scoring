@@ -1,25 +1,25 @@
 package com.springapp.mvc.model;
 
-import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@Component
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Player {
-    static final Player NOBODY = new Player() {
-        public Integer getCurrentScore() {
-            return 0;
-        }
-
-        public void incrementScore() {
-        }
-
-        public void resetScore() {
-        }
+    public static final Player NOBODY = new Player("Nobody") {
+        public Integer getCurrentScore() {return 0;}
+        public void incrementScore() {}
+        public void resetScore() {}
     };
 
+    private final String playerId;
     private Integer currentScore;
     private Integer numberOfPointsScored;
 
-    public Player() {
+    public Player(String playerId) {
+        this.playerId = playerId;
         this.currentScore = 0;
         this.numberOfPointsScored = 0;
     }
@@ -35,6 +35,7 @@ public class Player {
 
     public void resetScore() {
         currentScore = 0;
+        numberOfPointsScored = 0;
     }
 
     public Boolean defeated(Player opponent) {

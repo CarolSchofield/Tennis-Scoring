@@ -3,6 +3,7 @@ package com.springapp.mvc.model;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.springapp.mvc.model.PlayerBuilder.aPlayer;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -12,7 +13,7 @@ public class PlayerTest {
 
     @Before
     public void setUp() throws Exception {
-        player = new Player();
+        player = new Player("Player one");
     }
 
     @Test
@@ -45,8 +46,18 @@ public class PlayerTest {
     }
 
     @Test
+    public void shouldResetPointsScoredToZero() {
+        Player playerWithNoPoints = aPlayer().withPlayerId("Player one").withNumberOfPointsScored(0).build();
+
+        player.incrementScore();
+        player.resetScore();
+
+        assertThat(player, is(playerWithNoPoints));
+    }
+
+    @Test
     public void shouldNotDeclareWinnerBeforeAnyPointsAreScored() throws Exception {
-        Player opponent = new Player();
+        Player opponent = new Player("Player one");
         Boolean defeatedOpponent = player.defeated(opponent);
 
         assertThat(defeatedOpponent, is(Boolean.FALSE));
@@ -55,7 +66,7 @@ public class PlayerTest {
 
     @Test
     public void shouldDiscoverPlayerOneDefeatsOpponent() {
-        Player opponent = new Player();
+        Player opponent = new Player("Player one");
         player.incrementScore();
         player.incrementScore();
         player.incrementScore();

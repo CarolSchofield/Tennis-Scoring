@@ -11,11 +11,5 @@
         <property name="prefix" value="/WEB-INF/pages/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-    <bean id="playerOne" class="com.springapp.mvc.model.Player">
-        <qualifier value="playerOne"/>
-    </bean>
-    <bean id="playerTwo" class="com.springapp.mvc.model.Player">
-        <qualifier value="playerTwo"/>
-    </bean>
 
 </beans>

@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ScoreUpdateService {
+    Game game;
 
-    private Game game;
-    
     @Autowired
-    public ScoreUpdateService(Game game) {
-        this.game = game;
+    public ScoreUpdateService(PlayerService playerService) {
+        Player playerOne = playerService.findPlayer("Player One");
+        Player playerTwo = playerService.findPlayer("Player Two");
+        this.game = new Game(playerOne, playerTwo);
     }
 
     public void scorePoint(Player player) {

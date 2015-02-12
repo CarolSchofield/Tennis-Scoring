@@ -15,13 +15,18 @@ public class ScoreUpdateServiceTest {
     Player mockPlayer;
 
     @Mock
+    PlayerService mockPlayerService;
+
+    @Mock
     Game mockGame;
+
     private ScoreUpdateService scoreUpdateService;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        scoreUpdateService = new ScoreUpdateService(mockGame);
+        scoreUpdateService = new ScoreUpdateService(mockPlayerService);
+        scoreUpdateService.game = mockGame;
     }
 
     @Test
@@ -48,7 +53,7 @@ public class ScoreUpdateServiceTest {
         when(mockGame.winner()).thenReturn(mockPlayer);
 
         scoreUpdateService.winner();
-        
+
         verify(mockGame).winner();
     }
 }
