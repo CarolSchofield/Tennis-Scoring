@@ -39,9 +39,16 @@ public class Game {
     }
 
     public String score() {
+        if(playerOne.defeated(playerTwo)){
+            return "Game - Player One";
+        }
+
+        if(playerTwo.defeated(playerOne)){
+            return "Game - Player Two";
+        }
+
         String p1Score = String.valueOf(playerOne.getCurrentScore());
         String p2Score = String.valueOf(playerTwo.getCurrentScore());
         return p1Score + DELIMITER + p2Score;
-
     }
 }

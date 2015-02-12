@@ -81,4 +81,18 @@ public class GameTest {
         assertThat(actualScore, is("15/30"));
 
     }
+
+    @Test
+    public void shouldDeclareWinnerWhenThereIsAWinner() {
+        String actualScore;
+
+        when(mockPlayerOne.defeated(mockPlayerTwo)).thenReturn(true).thenReturn(false);
+        actualScore = game.score();
+        assertThat(actualScore, is("Game - Player One"));
+
+        when(mockPlayerTwo.defeated(mockPlayerOne)).thenReturn(true);
+        actualScore = game.score();
+        assertThat(actualScore, is("Game - Player Two"));
+    }
+
 }

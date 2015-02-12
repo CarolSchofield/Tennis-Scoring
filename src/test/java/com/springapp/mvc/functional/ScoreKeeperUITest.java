@@ -11,6 +11,8 @@ import static org.junit.Assert.assertThat;
 
 public class ScoreKeeperUITest {
     private static final String BASE_URL = "http://localhost:8080/";
+    public static final String PLAYER_ONE_BUTTON_SELECTOR = "[data-qa=player-one-button]";
+    public static final String PLAYER_TWO_BUTTON_SELECTOR = "[data-qa=player-two-button]";
     private static WebDriver driver;
 
     private WebElement playerOneButton;
@@ -40,8 +42,8 @@ public class ScoreKeeperUITest {
     }
 
     @Test
-    public void shouldUpdateScoreWhenButtonIsClicked() {
-        playerOneButton = driver.findElement(By.cssSelector("[data-qa=player-one-button]"));
+    public void shouldPlayMatchUntilWin() {
+        playerOneButton = driver.findElement(By.cssSelector(PLAYER_ONE_BUTTON_SELECTOR));
         score = driver.findElement(By.cssSelector("[data-qa=score]"));
         assertThat(score.getText(), is("0/0"));
 
@@ -49,10 +51,26 @@ public class ScoreKeeperUITest {
         score = driver.findElement(By.cssSelector("[data-qa=score]"));
         assertThat(score.getText(), is("15/0"));
 
-        playerTwoButton = driver.findElement(By.cssSelector("[data-qa=player-two-button]"));
+        playerTwoButton = driver.findElement(By.cssSelector(PLAYER_TWO_BUTTON_SELECTOR));
         playerTwoButton.click();
         score = driver.findElement(By.cssSelector("[data-qa=score]"));
         assertThat(score.getText(), is("15/15"));
+
+        playerOneButton = driver.findElement(By.cssSelector(PLAYER_ONE_BUTTON_SELECTOR));
+        playerOneButton.click();
+        score = driver.findElement(By.cssSelector("[data-qa=score]"));
+        assertThat(score.getText(), is("30/15"));
+
+        playerOneButton = driver.findElement(By.cssSelector(PLAYER_ONE_BUTTON_SELECTOR));
+        playerOneButton.click();
+        score = driver.findElement(By.cssSelector("[data-qa=score]"));
+        assertThat(score.getText(), is("40/15"));
+
+        playerOneButton = driver.findElement(By.cssSelector(PLAYER_ONE_BUTTON_SELECTOR));
+        playerOneButton.click();
+        score = driver.findElement(By.cssSelector("[data-qa=score]"));
+        assertThat(score.getText(), is("Game - Player One"));
+
 
         resetButton = driver.findElement(By.cssSelector("[data-qa=reset-button]"));
         resetButton.click();
