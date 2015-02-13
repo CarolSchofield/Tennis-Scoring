@@ -71,10 +71,28 @@ public class ScoreKeeperUITest {
         score = driver.findElement(By.cssSelector("[data-qa=score]"));
         assertThat(score.getText(), is("Game - Player One"));
 
+        checkButtonsAreDisabled();
 
         resetButton = driver.findElement(By.cssSelector("[data-qa=reset-button]"));
         resetButton.click();
         score = driver.findElement(By.cssSelector("[data-qa=score]"));
         assertThat(score.getText(), is("0/0"));
+
+        checkButtonsAreEnabled();
+
+    }
+
+    private void checkButtonsAreDisabled() {
+        playerOneButton = driver.findElement(By.cssSelector(PLAYER_ONE_BUTTON_SELECTOR));
+        playerTwoButton = driver.findElement(By.cssSelector(PLAYER_TWO_BUTTON_SELECTOR));
+        assertThat(playerOneButton.isEnabled(), is(false));
+        assertThat(playerTwoButton.isEnabled(), is(false));
+    }
+
+    private void checkButtonsAreEnabled() {
+        playerOneButton = driver.findElement(By.cssSelector(PLAYER_ONE_BUTTON_SELECTOR));
+        playerTwoButton = driver.findElement(By.cssSelector(PLAYER_TWO_BUTTON_SELECTOR));
+        assertThat(playerOneButton.isEnabled(), is(true));
+        assertThat(playerTwoButton.isEnabled(), is(true));
     }
 }

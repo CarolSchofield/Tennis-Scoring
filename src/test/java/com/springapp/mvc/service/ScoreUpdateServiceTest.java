@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -55,5 +57,20 @@ public class ScoreUpdateServiceTest {
         scoreUpdateService.winner();
 
         verify(mockGame).winner();
+    }
+
+    @Test
+    public void shouldNotDeclareGameOverWhenNoWinner() {
+        when(mockGame.winner()).thenReturn(Player.NOBODY);
+        Boolean isGameOver = scoreUpdateService.isGameOver();
+        assertThat(isGameOver, is(false));
+    }
+
+    @Test
+    public void shouldDeclareGameOverWhenWinner() {
+        when(mockGame.winner()).thenReturn(mockPlayer);
+        Boolean isGameOver = scoreUpdateService.isGameOver();
+        assertThat(isGameOver, is(true));
+
     }
 }

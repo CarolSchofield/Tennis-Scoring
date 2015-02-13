@@ -3,8 +3,8 @@
 <h1>${message}</h1>
 
 <form action="/updateAction" method="post">
-    <input type="submit" data-qa="player-one-button" name="player" value="Player One"/>
-    <input type="submit" data-qa="player-two-button" name="player" value="Player Two"/>
+    <input type="submit" data-qa="player-one-button" ${disableIfGameOver} name="player" value="Player One"/>
+    <input type="submit" data-qa="player-two-button" ${disableIfGameOver} name="player" value="Player Two"/>
 </form>
 
 <div data-qa="score">${score}</div>

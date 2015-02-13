@@ -31,4 +31,8 @@ public class ScoreUpdateService {
     public Player winner() {
         return game.winner();
     }
+
+    public Boolean isGameOver() {
+        return !(game.winner().equals(Player.NOBODY));
+    }
 }
