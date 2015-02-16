@@ -36,6 +36,12 @@ public class ScoreKeeperSubcutaneousTest {
         scoreUpdateService.scorePoint(playerTwo);
         assertThat(scoreUpdateService.getCurrentScore(), is("Deuce"));
 
+        scoreUpdateService.scorePoint(playerTwo);
+        assertThat(scoreUpdateService.getCurrentScore(), is("Deuce")); //todo: his will eventually be an advantage score
+
+        scoreUpdateService.scorePoint(playerTwo);
+        assertThat(scoreUpdateService.getCurrentScore(), is("Game - Player Two"));
+
         scoreUpdateService.resetScore();
         assertThat(scoreUpdateService.getCurrentScore(), is("0/0"));
     }

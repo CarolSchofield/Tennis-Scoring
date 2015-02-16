@@ -9,56 +9,51 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class PlayerTest {
-    private Player player;
+    private Player playerOne;
 
     @Before
     public void setUp() throws Exception {
-        player = new Player("Player one");
+        playerOne = new Player("Player one");
     }
 
     @Test
-    public void shouldIncrementScoreByFifteen() throws Exception {
-        Integer startingScore = player.getCurrentScore();
+    public void shouldIncrementScoreByFifteenWhenPlayerScoresAPoint() throws Exception {
+        playerOneScores(1);
 
-        player.incrementScore();
-
-        Integer newScore = player.getCurrentScore();
-        
-        assertThat(newScore, is(startingScore + 15));
+        Integer newScore = playerOne.getCurrentScore();
+        assertThat(newScore, is(15));
     }
 
     @Test
-    public void shouldCapScoreAt40() throws Exception {
-        player.incrementScore();
-        player.incrementScore();
-        player.incrementScore();
-        assertThat(player.getCurrentScore(),is(40));
+    public void shouldCapScoreAtFortyInsteadOfFortyFive() throws Exception {
+        playerOneScores(3);
 
+        assertThat(playerOne.getCurrentScore(),is(40));
     }
 
     @Test
     public void shouldResetScoreToZero() throws Exception {
-        player.incrementScore();
-        assertThat(player.getCurrentScore(), is(not(0)));
+        playerOneScores(1);
+        assertThat(playerOne.getCurrentScore(), is(not(0)));
 
-        player.resetScore();
-        assertThat(player.getCurrentScore(), is(0));
+        playerOne.resetScore();
+        assertThat(playerOne.getCurrentScore(), is(0));
     }
 
     @Test
     public void shouldResetPointsScoredToZero() {
         Player playerWithNoPoints = aPlayer().withPlayerId("Player one").withNumberOfPointsScored(0).build();
 
-        player.incrementScore();
-        player.resetScore();
+        playerOneScores(1);
+        playerOne.resetScore();
 
-        assertThat(player, is(playerWithNoPoints));
+        assertThat(playerOne, is(playerWithNoPoints));
     }
 
     @Test
     public void shouldNotDeclareWinnerBeforeAnyPointsAreScored() throws Exception {
         Player opponent = new Player("Player one");
-        Boolean defeatedOpponent = player.defeated(opponent);
+        Boolean defeatedOpponent = playerOne.defeated(opponent);
 
         assertThat(defeatedOpponent, is(Boolean.FALSE));
 
@@ -67,14 +62,32 @@ public class PlayerTest {
     @Test
     public void shouldDiscoverPlayerOneDefeatsOpponent() {
         Player opponent = new Player("Player one");
-        player.incrementScore();
-        player.incrementScore();
-        player.incrementScore();
-        player.incrementScore();
+        playerOneScores(4);
 
-        Boolean defeatedOpponent = player.defeated(opponent);
+        Boolean defeatedOpponent = playerOne.defeated(opponent);
 
         assertThat(defeatedOpponent, is(Boolean.TRUE));
     }
 
+    @Test
+    public void shouldNotDefeatAPlayerUntilBeatingByTwo() throws Exception {
+
+        playerOneScores(3);
+
+        Player playerTwo = aPlayer().withNumberOfPointsScored(3).build();
+        
+        playerOne.incrementScore();
+        assertThat(playerOne.defeated(playerTwo), is(false));
+
+        playerOne.incrementScore();
+        assertThat(playerOne.defeated(playerTwo), is(true));
+    }
+
+    private void playerOneScores(int numPoints) {
+        for (int i = 0; i < numPoints; i++) {
+            playerOne.incrementScore();
+        }
+    }
+    
+    
 }

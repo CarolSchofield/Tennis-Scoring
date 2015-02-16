@@ -13,6 +13,7 @@ public class ScoreKeeperUITest {
     private static final String BASE_URL = "http://localhost:8080/";
     public static final String PLAYER_ONE_BUTTON_SELECTOR = "[data-qa=player-one-button]";
     public static final String PLAYER_TWO_BUTTON_SELECTOR = "[data-qa=player-two-button]";
+    public static final String SCORE_SELECTOR = "[data-qa=score]";
     private static WebDriver driver;
 
     private WebElement playerOneButton;
@@ -44,11 +45,11 @@ public class ScoreKeeperUITest {
     @Test
     public void shouldPlayMatchUntilWin() {
         playerOneButton = driver.findElement(By.cssSelector(PLAYER_ONE_BUTTON_SELECTOR));
-        score = driver.findElement(By.cssSelector("[data-qa=score]"));
+        score = driver.findElement(By.cssSelector(SCORE_SELECTOR));
         assertScoreIs("0/0");
 
         playerOneButton.click();
-        score = driver.findElement(By.cssSelector("[data-qa=score]"));
+        score = driver.findElement(By.cssSelector(SCORE_SELECTOR));
         assertScoreIs("15/0");
 
         playerTwoScores();
@@ -79,7 +80,7 @@ public class ScoreKeeperUITest {
     private void resetScore() {
         resetButton = driver.findElement(By.cssSelector("[data-qa=reset-button]"));
         resetButton.click();
-        score = driver.findElement(By.cssSelector("[data-qa=score]"));
+        score = driver.findElement(By.cssSelector(SCORE_SELECTOR));
     }
 
     private void assertScoreIs(String value) {
@@ -89,13 +90,13 @@ public class ScoreKeeperUITest {
     private void playerOneScores() {
         playerOneButton = driver.findElement(By.cssSelector(PLAYER_ONE_BUTTON_SELECTOR));
         playerOneButton.click();
-        score = driver.findElement(By.cssSelector("[data-qa=score]"));
+        score = driver.findElement(By.cssSelector(SCORE_SELECTOR));
     }
 
     private void playerTwoScores() {
         playerTwoButton = driver.findElement(By.cssSelector(PLAYER_TWO_BUTTON_SELECTOR));
         playerTwoButton.click();
-        score = driver.findElement(By.cssSelector("[data-qa=score]"));
+        score = driver.findElement(By.cssSelector(SCORE_SELECTOR));
     }
 
     private void checkButtonsAreDisabled() {

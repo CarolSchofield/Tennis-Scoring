@@ -35,7 +35,7 @@ public class Player {
     }
 
     public void incrementScore() {
-        currentScore = Math.min(currentScore + 15, 40);
+        currentScore = min(currentScore + 15, 40);
         numberOfPointsScored++;
     }
 
@@ -45,7 +45,7 @@ public class Player {
     }
 
     public Boolean defeated(Player opponent) {
-        if(numberOfPointsScored > opponent.numberOfPointsScored && numberOfPointsScored >= 4) {
+        if((numberOfPointsScored > opponent.numberOfPointsScored + 1) && numberOfPointsScored >= 4) {
             return true;
         }
         return false;
