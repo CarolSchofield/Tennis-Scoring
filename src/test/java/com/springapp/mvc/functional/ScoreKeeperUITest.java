@@ -65,6 +65,7 @@ public class ScoreKeeperUITest {
         assertScoreIs("Deuce");
 
         playerOneScores();
+        playerOneScores();
         assertThat(score.getText(), is("Game - Player One"));
 
         checkButtonsAreDisabled();

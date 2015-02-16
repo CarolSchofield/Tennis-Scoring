@@ -1,10 +1,10 @@
 package com.springapp.mvc.model;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-@AllArgsConstructor
+import static java.lang.Math.min;
+
 @ToString
 @EqualsAndHashCode
 public class Player {
@@ -17,6 +17,12 @@ public class Player {
     private final String playerId;
     private Integer currentScore;
     private Integer numberOfPointsScored;
+
+    public Player(String playerId, Integer currentScore, Integer numberOfPointsScored) {
+        this.playerId = playerId;
+        this.currentScore = currentScore;
+        this.numberOfPointsScored = numberOfPointsScored;
+    }
 
     public Player(String playerId) {
         this.playerId = playerId;
