@@ -32,6 +32,10 @@ public class ScoreKeeperSubcutaneousTest {
         scoreUpdateService.scorePoint(playerOne);
         assertThat(scoreUpdateService.getCurrentScore(), is("40/15"));
 
+        scoreUpdateService.scorePoint(playerTwo);
+        scoreUpdateService.scorePoint(playerTwo);
+        assertThat(scoreUpdateService.getCurrentScore(), is("Deuce"));
+
         scoreUpdateService.resetScore();
         assertThat(scoreUpdateService.getCurrentScore(), is("0/0"));
     }

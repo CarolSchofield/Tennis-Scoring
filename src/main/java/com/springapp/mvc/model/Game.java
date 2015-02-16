@@ -49,6 +49,11 @@ public class Game {
 
         String p1Score = String.valueOf(playerOne.getCurrentScore());
         String p2Score = String.valueOf(playerTwo.getCurrentScore());
+        
+        if (p1Score.equals("40") && p1Score.equals(p2Score) ) {
+            return "Deuce";
+        }
+        
         return p1Score + DELIMITER + p2Score;
     }
 }

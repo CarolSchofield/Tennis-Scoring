@@ -95,4 +95,24 @@ public class GameTest {
         assertThat(actualScore, is("Game - Player Two"));
     }
 
+    @Test
+    public void shouldReturnScoreAsDeuceWhenBothPlayersHaveFortyPoints() throws Exception {
+        when(mockPlayerOne.getCurrentScore()).thenReturn(40);
+        when(mockPlayerTwo.getCurrentScore()).thenReturn(40);
+        
+        String score = game.score();
+        
+        assertThat(score, is("Deuce"));
+    }
+
+    @Test
+    public void shouldNotReturnDeuceWhenTiedAndNotForty() throws Exception {
+        when(mockPlayerOne.getCurrentScore()).thenReturn(30);
+        when(mockPlayerTwo.getCurrentScore()).thenReturn(30);
+        
+        String actualScore = game.score();
+        
+        assertThat(actualScore, is("30/30"));
+
+    }
 }
