@@ -88,6 +88,25 @@ public class PlayerTest {
             playerOne.incrementScore();
         }
     }
-    
-    
+
+    @Test
+    public void shouldReturnTrueWhenPlayerOneHasAdvantage() throws Exception {
+        Player playerWithAdvantage = aPlayer().withNumberOfPointsScored(4).build();
+        Player playerWithNoAdvantage = aPlayer().withNumberOfPointsScored(3).build();
+        assertThat(playerWithAdvantage.isAtAdvantage(playerWithNoAdvantage), is(true));
+    }
+
+    @Test
+    public void shouldReturnFalseWhenPlayerDoesNotHaveOneGreaterPointThanOpponentFromDeuceState() throws Exception {
+        Player playerWithSixPoints = aPlayer().withNumberOfPointsScored(6).build();
+        Player anotherPlayerWithSixPoints = aPlayer().withNumberOfPointsScored(6).build();
+        assertThat(playerWithSixPoints.isAtAdvantage(anotherPlayerWithSixPoints), is(false));
+    }
+
+    @Test
+    public void shouldNotShowAdvantageWhenBothPlayersHaveFourPoints() throws Exception {
+        Player playerWithFourPoints = aPlayer().withNumberOfPointsScored(4).build();
+        Player anotherPlayerWithFourPoints = aPlayer().withNumberOfPointsScored(4).build();
+        assertThat(playerWithFourPoints.isAtAdvantage(anotherPlayerWithFourPoints), is(false));
+    }
 }

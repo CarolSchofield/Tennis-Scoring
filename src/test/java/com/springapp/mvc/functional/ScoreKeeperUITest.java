@@ -66,6 +66,8 @@ public class ScoreKeeperUITest {
         assertScoreIs("Deuce");
 
         playerOneScores();
+        assertScoreIs("Advantage/-");
+
         playerOneScores();
         assertThat(score.getText(), is("Game - Player One"));
 

@@ -30,7 +30,7 @@ public class Player {
     public Integer currentScore() {
         return min(numberOfPointsScored * 15, 40) ;
     }
-
+    
     public void incrementScore() {
         numberOfPointsScored++;
     }
@@ -39,10 +39,11 @@ public class Player {
         numberOfPointsScored = 0;
     }
 
+    public Boolean isAtAdvantage(Player opponent) {
+        return (numberOfPointsScored == opponent.numberOfPointsScored + 1) && numberOfPointsScored >= 4;
+    }
+
     public Boolean defeated(Player opponent) {
-        if((numberOfPointsScored > opponent.numberOfPointsScored + 1) && numberOfPointsScored >= 4) {
-            return true;
-        }
-        return false;
+        return (numberOfPointsScored > opponent.numberOfPointsScored + 1) && numberOfPointsScored >= 4;
     }
 }

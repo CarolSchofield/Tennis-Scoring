@@ -42,6 +42,14 @@ public class Scoreboard {
         if(playerTwo.defeated(playerOne)){
             return "Game - Player Two";
         }
+        
+        if(playerOne.isAtAdvantage(playerTwo)) {
+            return "Advantage/-";
+        }
+
+        if(playerTwo.isAtAdvantage(playerOne)) {
+            return "-/Advantage";
+        }
 
         String p1Score = String.valueOf(playerOne.currentScore());
         String p2Score = String.valueOf(playerTwo.currentScore());

@@ -39,7 +39,7 @@ public class ScoreKeeperSubcutaneousTest {
         assertThat(scoreBoardService.getCurrentScore(), is("Deuce"));
 
         refereeService.pointBy(playerTwo);
-        assertThat(scoreBoardService.getCurrentScore(), is("Deuce")); //todo: his will eventually be an advantage score
+        assertThat(scoreBoardService.getCurrentScore(), is("-/Advantage"));
 
         refereeService.pointBy(playerTwo);
         assertThat(scoreBoardService.getCurrentScore(), is("Game - Player Two"));

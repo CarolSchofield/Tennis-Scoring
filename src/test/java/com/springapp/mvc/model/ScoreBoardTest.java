@@ -11,7 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class ScoreBoardTest {
+public class ScoreboardTest {
     @Mock
     private Player mockPlayerOne;
     @Mock
@@ -105,5 +105,23 @@ public class ScoreBoardTest {
         
         assertThat(actualScore, is("30/30"));
 
+    }
+
+    @Test
+    public void shouldReturnAdvantageScoreWhenOnePlayerScoresAfterDeuceScore() throws Exception {
+        when(mockPlayerOne.isAtAdvantage(mockPlayerTwo)).thenReturn(true);
+
+        String actualScore = scoreboard.score();
+
+        assertThat(actualScore, is("Advantage/-"));
+    }
+
+    @Test
+    public void shouldReturnAdvantageScoreWhenTheOtherPlayerScoresAfterDeuceScore() throws Exception {
+        when(mockPlayerTwo.isAtAdvantage(mockPlayerOne)).thenReturn(true);
+
+        String actualScore = scoreboard.score();
+
+        assertThat(actualScore, is("-/Advantage"));
     }
 }
