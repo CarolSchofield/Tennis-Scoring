@@ -43,8 +43,8 @@ public class Scoreboard {
             return "Game - Player Two";
         }
 
-        String p1Score = String.valueOf(playerOne.getCurrentScore());
-        String p2Score = String.valueOf(playerTwo.getCurrentScore());
+        String p1Score = String.valueOf(playerOne.currentScore());
+        String p2Score = String.valueOf(playerTwo.currentScore());
 
         if (p1Score.equals("40") && p1Score.equals(p2Score) ) {
             return "Deuce";

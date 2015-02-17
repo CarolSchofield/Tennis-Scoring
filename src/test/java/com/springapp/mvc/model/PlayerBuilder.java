@@ -20,7 +20,7 @@ public class PlayerBuilder {
     }
 
     public Player build() {
-        Player player = new Player(playerId, currentScore, numberOfPointsScored);
+        Player player = new Player(playerId, numberOfPointsScored);
         return player;
     }
 

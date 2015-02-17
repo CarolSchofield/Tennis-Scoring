@@ -20,7 +20,7 @@ public class PlayerTest {
     public void shouldIncrementScoreByFifteenWhenPlayerScoresAPoint() throws Exception {
         playerOneScores(1);
 
-        Integer newScore = playerOne.getCurrentScore();
+        Integer newScore = playerOne.currentScore();
         assertThat(newScore, is(15));
     }
 
@@ -28,16 +28,16 @@ public class PlayerTest {
     public void shouldCapScoreAtFortyInsteadOfFortyFive() throws Exception {
         playerOneScores(3);
 
-        assertThat(playerOne.getCurrentScore(),is(40));
+        assertThat(playerOne.currentScore(), is(40));
     }
 
     @Test
     public void shouldResetScoreToZero() throws Exception {
         playerOneScores(1);
-        assertThat(playerOne.getCurrentScore(), is(not(0)));
+        assertThat(playerOne.currentScore(), is(not(0)));
 
         playerOne.resetScore();
-        assertThat(playerOne.getCurrentScore(), is(0));
+        assertThat(playerOne.currentScore(), is(0));
     }
 
     @Test

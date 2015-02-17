@@ -9,38 +9,33 @@ import static java.lang.Math.min;
 @EqualsAndHashCode
 public class Player {
     public static final Player NOBODY = new Player("Nobody") {
-        public Integer getCurrentScore() {return 0;}
+        public Integer currentScore() {return 0;}
         public void incrementScore() {}
         public void resetScore() {}
     };
 
     private final String playerId;
-    private Integer currentScore;
     private Integer numberOfPointsScored;
 
-    public Player(String playerId, Integer currentScore, Integer numberOfPointsScored) {
+    public Player(String playerId, Integer numberOfPointsScored) {
         this.playerId = playerId;
-        this.currentScore = currentScore;
         this.numberOfPointsScored = numberOfPointsScored;
     }
 
     public Player(String playerId) {
         this.playerId = playerId;
-        this.currentScore = 0;
         this.numberOfPointsScored = 0;
     }
 
-    public Integer getCurrentScore() {
-        return currentScore;
+    public Integer currentScore() {
+        return min(numberOfPointsScored * 15, 40) ;
     }
 
     public void incrementScore() {
-        currentScore = min(currentScore + 15, 40);
         numberOfPointsScored++;
     }
 
     public void resetScore() {
-        currentScore = 0;
         numberOfPointsScored = 0;
     }
 

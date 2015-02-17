@@ -60,14 +60,14 @@ public class ScoreBoardTest {
     @Test
     public void shouldGetScoreFromPlayers() throws Exception {
         scoreboard.score();
-        verify(mockPlayerOne).getCurrentScore();
-        verify(mockPlayerTwo).getCurrentScore();
+        verify(mockPlayerOne).currentScore();
+        verify(mockPlayerTwo).currentScore();
     }
 
     @Test
     public void shouldFormatScore() throws Exception {
-        when(mockPlayerOne.getCurrentScore()).thenReturn(15);
-        when(mockPlayerTwo.getCurrentScore()).thenReturn(30);
+        when(mockPlayerOne.currentScore()).thenReturn(15);
+        when(mockPlayerTwo.currentScore()).thenReturn(30);
         String actualScore = scoreboard.score();
         assertThat(actualScore, is("15/30"));
 
@@ -88,8 +88,8 @@ public class ScoreBoardTest {
 
     @Test
     public void shouldReturnScoreAsDeuceWhenBothPlayersHaveFortyPoints() throws Exception {
-        when(mockPlayerOne.getCurrentScore()).thenReturn(40);
-        when(mockPlayerTwo.getCurrentScore()).thenReturn(40);
+        when(mockPlayerOne.currentScore()).thenReturn(40);
+        when(mockPlayerTwo.currentScore()).thenReturn(40);
         
         String score = scoreboard.score();
         
@@ -98,8 +98,8 @@ public class ScoreBoardTest {
 
     @Test
     public void shouldNotReturnDeuceWhenTiedAndNotForty() throws Exception {
-        when(mockPlayerOne.getCurrentScore()).thenReturn(30);
-        when(mockPlayerTwo.getCurrentScore()).thenReturn(30);
+        when(mockPlayerOne.currentScore()).thenReturn(30);
+        when(mockPlayerTwo.currentScore()).thenReturn(30);
         
         String actualScore = scoreboard.score();
         
