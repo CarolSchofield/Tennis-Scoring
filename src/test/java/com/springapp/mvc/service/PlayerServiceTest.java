@@ -23,7 +23,7 @@ public class PlayerServiceTest {
     }
 
     @Test
-    public void shouldFindPlayerFromStringIfPlayerExists() {
+    public void shouldFindPlayerFromPlayerIdIfPlayerExists() {
         Player player = playerService.findPlayer("Player One");
         Player expectedPlayer = new Player("Player One");
         assertThat(player, is(expectedPlayer));

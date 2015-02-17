@@ -1,38 +1,34 @@
 package com.springapp.mvc.service;
 
-import com.springapp.mvc.model.Game;
+import com.springapp.mvc.model.Scoreboard;
 import com.springapp.mvc.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ScoreUpdateService {
-    Game game;
+public class ScoreBoardService {
+    Scoreboard scoreboard;
 
     @Autowired
-    public ScoreUpdateService(PlayerService playerService) {
+    public ScoreBoardService(PlayerService playerService) {
         Player playerOne = playerService.findPlayer("Player One");
         Player playerTwo = playerService.findPlayer("Player Two");
-        this.game = new Game(playerOne, playerTwo);
-    }
-
-    public void scorePoint(Player player) {
-        game.pointBy(player);
+        this.scoreboard = new Scoreboard(playerOne, playerTwo);
     }
 
     public String getCurrentScore() {
-        return game.score();
+        return scoreboard.score();
     }
 
     public void resetScore() {
-        game.resetScore();
+        scoreboard.resetScore();
     }
 
     public Player winner() {
-        return game.winner();
+        return scoreboard.winner();
     }
 
     public Boolean isGameOver() {
-        return !(game.winner().equals(Player.NOBODY));
+        return !(scoreboard.winner().equals(Player.NOBODY));
     }
 }

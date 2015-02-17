@@ -11,17 +11,17 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class GameTest {
+public class ScoreBoardTest {
     @Mock
     private Player mockPlayerOne;
     @Mock
     private Player mockPlayerTwo;
-    private Game game;
+    private Scoreboard game;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        game = new Game(mockPlayerOne, mockPlayerTwo);
+        game = new Scoreboard(mockPlayerOne, mockPlayerTwo);
     }
 
     @Test
@@ -47,15 +47,6 @@ public class GameTest {
         Player actualWinner = game.winner();
 
         assertThat(actualWinner, is(mockPlayerTwo));
-
-    }
-
-    @Test
-    public void shouldNotifyPlayerWhenPlayerWinsPoint() throws Exception {
-        
-        game.pointBy(mockPlayerOne);
-        
-        verify(mockPlayerOne).incrementScore();
 
     }
 

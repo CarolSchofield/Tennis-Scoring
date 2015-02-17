@@ -14,18 +14,9 @@ public class PlayerBuilder {
         return this;
     }
 
-    public PlayerBuilder withCurrentScore(Integer currentScore) {
-        this.currentScore = currentScore;
-        return this;
-    }
-
     public PlayerBuilder withNumberOfPointsScored(Integer numberOfPointsScored) {
         this.numberOfPointsScored = numberOfPointsScored;
         return this;
-    }
-
-    public PlayerBuilder but() {
-        return aPlayer().withPlayerId(playerId).withCurrentScore(currentScore).withNumberOfPointsScored(numberOfPointsScored);
     }
 
     public Player build() {

@@ -1,6 +1,6 @@
 package com.springapp.mvc.controller;
 
-import com.springapp.mvc.service.ScoreUpdateService;
+import com.springapp.mvc.service.ScoreBoardService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,7 @@ public class HomeControllerTest {
     @Mock
     private ModelMap mockModelMap;
     @Mock
-    private ScoreUpdateService mockScoreUpdateService;
+    private ScoreBoardService mockScoreBoardService;
 
     private HomeController homeController;
 
@@ -26,14 +26,14 @@ public class HomeControllerTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        homeController = new HomeController(mockScoreUpdateService);
+        homeController = new HomeController(mockScoreBoardService);
     }
 
     @Test
     public void shouldAddElementsToModel() {
-        when(mockScoreUpdateService.getCurrentScore()).thenReturn("SomeScore");
+        when(mockScoreBoardService.getCurrentScore()).thenReturn("SomeScore");
 
-        homeController.printWelcome(mockModelMap);
+        homeController.reportTennisGame(mockModelMap);
 
         verify(mockModelMap).addAttribute("message", "Welcome to Tennis Scorekeeper!");
         verify(mockModelMap).addAttribute("score", "SomeScore");
@@ -41,9 +41,9 @@ public class HomeControllerTest {
 
     @Test
     public void shouldDisableButtonsIfGameIsOver() {
-        when(mockScoreUpdateService.isGameOver()).thenReturn(true);
+        when(mockScoreBoardService.isGameOver()).thenReturn(true);
 
-        homeController.printWelcome(mockModelMap);
+        homeController.reportTennisGame(mockModelMap);
 
         verify(mockModelMap).addAttribute("disableIfGameOver", "disabled");
     }

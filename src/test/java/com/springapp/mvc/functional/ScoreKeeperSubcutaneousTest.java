@@ -1,8 +1,9 @@
 package com.springapp.mvc.functional;
 
 import com.springapp.mvc.model.Player;
+import com.springapp.mvc.model.RefereeService;
 import com.springapp.mvc.service.PlayerService;
-import com.springapp.mvc.service.ScoreUpdateService;
+import com.springapp.mvc.service.ScoreBoardService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
@@ -13,36 +14,37 @@ import static org.junit.Assert.assertThat;
 public class ScoreKeeperSubcutaneousTest {
     
     @Test
-    public void shouldIncreasePlayersScoreBy15WhenTheyScore() {
+    public void shouldPlayGameToCompletion() {
         ApplicationContext applicationContext = new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml");
-        ScoreUpdateService scoreUpdateService = applicationContext.getBean(ScoreUpdateService.class);
+        ScoreBoardService scoreBoardService = applicationContext.getBean(ScoreBoardService.class);
+        RefereeService refereeService = applicationContext.getBean(RefereeService.class);
         PlayerService playerService = applicationContext.getBean(PlayerService.class);
 
         Player playerOne = playerService.findPlayer("Player One");
         Player playerTwo = playerService.findPlayer("Player Two");
 
-        assertThat(scoreUpdateService.getCurrentScore(), is("0/0"));
+        assertThat(scoreBoardService.getCurrentScore(), is("0/0"));
 
-        scoreUpdateService.scorePoint(playerOne);
-        scoreUpdateService.scorePoint(playerOne);
-        scoreUpdateService.scorePoint(playerTwo);
+        refereeService.pointBy(playerOne);
+        refereeService.pointBy(playerOne);
+        refereeService.pointBy(playerTwo);
 
-        assertThat(scoreUpdateService.getCurrentScore(), is("30/15"));
+        assertThat(scoreBoardService.getCurrentScore(), is("30/15"));
 
-        scoreUpdateService.scorePoint(playerOne);
-        assertThat(scoreUpdateService.getCurrentScore(), is("40/15"));
+        refereeService.pointBy(playerOne);
+        assertThat(scoreBoardService.getCurrentScore(), is("40/15"));
 
-        scoreUpdateService.scorePoint(playerTwo);
-        scoreUpdateService.scorePoint(playerTwo);
-        assertThat(scoreUpdateService.getCurrentScore(), is("Deuce"));
+        refereeService.pointBy(playerTwo);
+        refereeService.pointBy(playerTwo);
+        assertThat(scoreBoardService.getCurrentScore(), is("Deuce"));
 
-        scoreUpdateService.scorePoint(playerTwo);
-        assertThat(scoreUpdateService.getCurrentScore(), is("Deuce")); //todo: his will eventually be an advantage score
+        refereeService.pointBy(playerTwo);
+        assertThat(scoreBoardService.getCurrentScore(), is("Deuce")); //todo: his will eventually be an advantage score
 
-        scoreUpdateService.scorePoint(playerTwo);
-        assertThat(scoreUpdateService.getCurrentScore(), is("Game - Player Two"));
+        refereeService.pointBy(playerTwo);
+        assertThat(scoreBoardService.getCurrentScore(), is("Game - Player Two"));
 
-        scoreUpdateService.resetScore();
-        assertThat(scoreUpdateService.getCurrentScore(), is("0/0"));
+        scoreBoardService.resetScore();
+        assertThat(scoreBoardService.getCurrentScore(), is("0/0"));
     }
 }

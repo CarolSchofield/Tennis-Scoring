@@ -1,6 +1,6 @@
 package com.springapp.mvc.controller;
 
-import com.springapp.mvc.service.ScoreUpdateService;
+import com.springapp.mvc.service.ScoreBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/")
 public class HomeController {
 
-    private ScoreUpdateService scoreUpdateService;
+    private ScoreBoardService scoreboardService;
 
     @Autowired
-    public HomeController(ScoreUpdateService scoreUpdateService) {
-        this.scoreUpdateService = scoreUpdateService;
+    public HomeController(ScoreBoardService scoreBoardService) {
+        this.scoreboardService = scoreBoardService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-	public String printWelcome(ModelMap model) {
+	public String reportTennisGame(ModelMap model) {
 		model.addAttribute("message", "Welcome to Tennis Scorekeeper!");
-        model.addAttribute("score", scoreUpdateService.getCurrentScore());
+        model.addAttribute("score", scoreboardService.getCurrentScore());
 
-        if(scoreUpdateService.isGameOver()) {
+        if(scoreboardService.isGameOver()) {
             model.addAttribute("disableIfGameOver", "disabled");
         }
 
