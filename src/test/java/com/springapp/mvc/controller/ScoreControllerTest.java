@@ -1,7 +1,7 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Player;
-import com.springapp.mvc.model.RefereeService;
+import com.springapp.mvc.service.RefereeService;
 import com.springapp.mvc.service.PlayerService;
 import com.springapp.mvc.service.ScoreBoardService;
 import org.junit.Before;

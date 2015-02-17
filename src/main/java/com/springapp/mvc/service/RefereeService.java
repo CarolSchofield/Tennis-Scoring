@@ -1,6 +1,7 @@
-package com.springapp.mvc.model;
+package com.springapp.mvc.service;
 
 
+import com.springapp.mvc.model.Player;
 import org.springframework.stereotype.Service;
 
 @Service

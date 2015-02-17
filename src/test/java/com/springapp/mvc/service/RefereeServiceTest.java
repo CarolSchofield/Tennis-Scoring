@@ -1,7 +1,6 @@
 package com.springapp.mvc.service;
 
 import com.springapp.mvc.model.Player;
-import com.springapp.mvc.model.RefereeService;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
