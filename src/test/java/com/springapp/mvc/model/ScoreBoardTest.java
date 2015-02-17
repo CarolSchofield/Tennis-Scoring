@@ -16,17 +16,17 @@ public class ScoreBoardTest {
     private Player mockPlayerOne;
     @Mock
     private Player mockPlayerTwo;
-    private Scoreboard game;
+    private Scoreboard scoreboard;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        game = new Scoreboard(mockPlayerOne, mockPlayerTwo);
+        scoreboard = new Scoreboard(mockPlayerOne, mockPlayerTwo);
     }
 
     @Test
     public void shouldNotDeclareWinnerWhenGameBegins() throws Exception {
-        Player actualWinner = game.winner();
+        Player actualWinner = scoreboard.winner();
         
         assertThat(actualWinner, is(NOBODY));
     }
@@ -35,7 +35,7 @@ public class ScoreBoardTest {
     public void shouldDeclarePlayerOneWinnerWhenPlayerOneDefeatsPlayerTwo() throws Exception {
         when(mockPlayerOne.defeated(mockPlayerTwo)).thenReturn(true);
 
-        Player actualWinner = game.winner();
+        Player actualWinner = scoreboard.winner();
 
         assertThat(actualWinner, is(mockPlayerOne));
     }
@@ -44,7 +44,7 @@ public class ScoreBoardTest {
     public void shouldDeclarePlayerTwoWinnerWhenPlayerTwoDefeatsPlayerOne() throws Exception {
         when(mockPlayerTwo.defeated(mockPlayerOne)).thenReturn(true);
 
-        Player actualWinner = game.winner();
+        Player actualWinner = scoreboard.winner();
 
         assertThat(actualWinner, is(mockPlayerTwo));
 
@@ -52,14 +52,14 @@ public class ScoreBoardTest {
 
     @Test
     public void shouldResetPlayerScoresWhenGameIsReset() throws Exception {
-        game.resetScore();
+        scoreboard.resetScore();
         verify(mockPlayerOne).resetScore();
         verify(mockPlayerTwo).resetScore();
     }
 
     @Test
     public void shouldGetScoreFromPlayers() throws Exception {
-        game.score();
+        scoreboard.score();
         verify(mockPlayerOne).getCurrentScore();
         verify(mockPlayerTwo).getCurrentScore();
     }
@@ -68,7 +68,7 @@ public class ScoreBoardTest {
     public void shouldFormatScore() throws Exception {
         when(mockPlayerOne.getCurrentScore()).thenReturn(15);
         when(mockPlayerTwo.getCurrentScore()).thenReturn(30);
-        String actualScore = game.score();
+        String actualScore = scoreboard.score();
         assertThat(actualScore, is("15/30"));
 
     }
@@ -78,11 +78,11 @@ public class ScoreBoardTest {
         String actualScore;
 
         when(mockPlayerOne.defeated(mockPlayerTwo)).thenReturn(true).thenReturn(false);
-        actualScore = game.score();
+        actualScore = scoreboard.score();
         assertThat(actualScore, is("Game - Player One"));
 
         when(mockPlayerTwo.defeated(mockPlayerOne)).thenReturn(true);
-        actualScore = game.score();
+        actualScore = scoreboard.score();
         assertThat(actualScore, is("Game - Player Two"));
     }
 
@@ -91,7 +91,7 @@ public class ScoreBoardTest {
         when(mockPlayerOne.getCurrentScore()).thenReturn(40);
         when(mockPlayerTwo.getCurrentScore()).thenReturn(40);
         
-        String score = game.score();
+        String score = scoreboard.score();
         
         assertThat(score, is("Deuce"));
     }
@@ -101,7 +101,7 @@ public class ScoreBoardTest {
         when(mockPlayerOne.getCurrentScore()).thenReturn(30);
         when(mockPlayerTwo.getCurrentScore()).thenReturn(30);
         
-        String actualScore = game.score();
+        String actualScore = scoreboard.score();
         
         assertThat(actualScore, is("30/30"));
 
