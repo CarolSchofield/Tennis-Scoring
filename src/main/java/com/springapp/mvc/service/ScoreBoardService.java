@@ -31,4 +31,8 @@ public class ScoreBoardService {
     public Boolean isGameOver() {
         return !(scoreboard.winner().equals(Player.NOBODY));
     }
+
+    public void pointBy(Player player) {
+        scoreboard.pointBy(player);
+    }
 }

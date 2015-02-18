@@ -27,7 +27,7 @@ public class ScoreController {
     @RequestMapping(method = RequestMethod.POST, value = "/updateAction")
     public String scorePointForPlayer(HttpServletRequest request) {
         Player player = playerService.findPlayer(request.getParameter("player"));
-        refereeService.pointBy(player);
+        scoreBoardService.pointBy(player);
         return "redirect:/";
     }
 
