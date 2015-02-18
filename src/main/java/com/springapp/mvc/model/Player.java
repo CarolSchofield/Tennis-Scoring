@@ -3,16 +3,10 @@ package com.springapp.mvc.model;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import static java.lang.Math.min;
-
 @ToString
 @EqualsAndHashCode
 public class Player {
-    public static final Player NOBODY = new Player("Nobody") {
-        public Integer currentScore() {return 0;}
-        public void incrementScore() {}
-        public void resetScore() {}
-    };
+    public static final Player NOBODY = new Player("Nobody") {};
 
     private final String playerId;
     private Integer numberOfPointsScored;
@@ -27,10 +21,10 @@ public class Player {
         this.numberOfPointsScored = 0;
     }
 
-    public Integer currentScore() {
-        return min(numberOfPointsScored * 15, 40) ;
+    public Integer numberOfPointsScored() {
+        return numberOfPointsScored;
     }
-    
+
     public void incrementScore() {
         numberOfPointsScored++;
     }

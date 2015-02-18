@@ -4,6 +4,7 @@ import com.springapp.mvc.game.GameState;
 import org.springframework.stereotype.Component;
 
 import static com.springapp.mvc.game.GameState.*;
+import static java.lang.Math.min;
 
 @Component
 public class Scoreboard {
@@ -13,6 +14,8 @@ public class Scoreboard {
     private Player playerOne;
     private Player playerTwo;
     private GameState gameState;
+    private String playerOneScore;
+    private String playerTwoScore;
 
     private Scoreboard() {
         // needed for Spring wiring
@@ -22,6 +25,8 @@ public class Scoreboard {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         gameState = NumericalScores;
+        playerOneScore = "0";
+        playerTwoScore = "0";
     }
 
     public Player winner() {
@@ -37,16 +42,18 @@ public class Scoreboard {
     public void resetScore() {
         playerOne.resetScore();
         playerTwo.resetScore();
-    }
-
-    public GameState getGameState() {
-        return gameState;
+        playerOneScore = "0";
+        playerTwoScore = "0";
+        updateGameState();
     }
 
     public void pointBy(Player player) {
         player.incrementScore();
-        String p1Score = String.valueOf(playerOne.currentScore());
-        String p2Score = String.valueOf(playerTwo.currentScore());
+        updateGameState();
+    }
+
+    private void updateGameState() {
+        updateScores();
 
         if(playerOne.defeated(playerTwo)) {
             gameState = PlayerOneWin;
@@ -56,31 +63,24 @@ public class Scoreboard {
             gameState = PlayerOneAdvantage;
         } else if(playerTwo.isAtAdvantage(playerOne)) {
             gameState = PlayerTwoAdvantage;
-        } else if(p1Score.equals("40") && p1Score.equals(p2Score)) {
+        } else if(playerOneScore.equals("40") && playerOneScore.equals(playerTwoScore)) {
             gameState = Deuce;
         } else {
             gameState = NumericalScores;
         }
     }
 
+    private void updateScores() {
+        playerOneScore = String.valueOf(min(playerOne.numberOfPointsScored() * 15, 40) );
+        playerTwoScore = String.valueOf(min(playerTwo.numberOfPointsScored() * 15, 40) );
+    }
+
 
     public String score() {
-        String p1Score = String.valueOf(playerOne.currentScore());
-        String p2Score = String.valueOf(playerTwo.currentScore());
-
-        switch(gameState) {
-            case PlayerOneWin:
-                return "Game - Player One";
-            case PlayerTwoWin:
-                return "Game - Player Two";
-            case PlayerOneAdvantage:
-                return "Advantage/-";
-            case PlayerTwoAdvantage:
-                return "-/Advantage";
-            case Deuce:
-                return "Deuce";
-            default:
-                return p1Score + DELIMITER + p2Score;
+        if(gameState == NumericalScores) {
+            return playerOneScore + DELIMITER + playerTwoScore;
+        } else {
+            return gameState.message();
         }
     }
 }
